@@ -5,20 +5,21 @@ import (
 
 	"github.com/qensus-labs/go-stix/stix"
 	"github.com/qensus-labs/go-stix/stix/mapping/otel"
+	"github.com/qensus-labs/go-stix/stix/observation"
 )
 
-func TestMapAttributes(t *testing.T) {
+func TestMapObservation(t *testing.T) {
 
 	builder := stix.NewBuilder()
 
-	event := otel.LogEvent{
+	obs := observation.Observation{
 		ClientAddress: "10.0.0.5",
 		URL:           "https://example.com",
 	}
 
-	err := otel.MapLogEvent(
+	err := otel.MapObservation(
 		builder,
-		event,
+		obs,
 	)
 
 	if err != nil {
@@ -26,7 +27,6 @@ func TestMapAttributes(t *testing.T) {
 	}
 
 	if builder.Count() != 3 {
-
 		t.Fatalf(
 			"expected 3 STIX objects, got %d",
 			builder.Count(),

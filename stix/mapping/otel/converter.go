@@ -3,22 +3,23 @@ package otel
 import (
 	"github.com/qensus-labs/go-stix/stix"
 	"github.com/qensus-labs/go-stix/stix/factory"
+	"github.com/qensus-labs/go-stix/stix/observation"
 )
 
 // MapLogEvent converts an OpenTelemetry-derived
 // security event into STIX objects.
-func MapLogEvent(
+func MapObservation(
 	builder *stix.Builder,
-	event LogEvent,
+	obs observation.Observation,
 ) error {
 
 	var refs []string
 
-	if event.ClientAddress != "" {
+	if obs.ClientAddress != "" {
 
 		ip, err := factory.IPv4(
 			builder,
-			event.ClientAddress,
+			obs.ClientAddress,
 		)
 
 		if err != nil {
@@ -31,11 +32,11 @@ func MapLogEvent(
 		)
 	}
 
-	if event.ServerAddress != "" {
+	if obs.ServerAddress != "" {
 
 		ip, err := factory.IPv4(
 			builder,
-			event.ServerAddress,
+			obs.ServerAddress,
 		)
 
 		if err != nil {
@@ -48,11 +49,11 @@ func MapLogEvent(
 		)
 	}
 
-	if event.NetworkPeerAddress != "" {
+	if obs.NetworkPeerAddress != "" {
 
 		ip, err := factory.IPv4(
 			builder,
-			event.NetworkPeerAddress,
+			obs.NetworkPeerAddress,
 		)
 
 		if err != nil {
@@ -65,11 +66,11 @@ func MapLogEvent(
 		)
 	}
 
-	if event.URL != "" {
+	if obs.URL != "" {
 
 		url, err := factory.URL(
 			builder,
-			event.URL,
+			obs.URL,
 		)
 
 		if err != nil {
