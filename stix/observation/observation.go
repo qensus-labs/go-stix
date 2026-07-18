@@ -20,6 +20,7 @@ type Observation struct {
 
 	UserAgent string
 
-	ProcessName string
-	ProcessPID  int64
+	ProcessName        string
+	ProcessPID         int64
+	ProcessCommandLine string
 }

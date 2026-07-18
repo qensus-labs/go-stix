@@ -12,8 +12,9 @@ const (
 	HostName          = "host.name"
 	UserAgentOriginal = "user_agent.original"
 
-	ProcessName = "process.name"
-	ProcessPID  = "process.pid"
+	ProcessName        = "process.name"
+	ProcessPID         = "process.pid"
+	ProcessCommandLine = "process.command_line"
 )
 
 // Attributes represents a simplified set of OpenTelemetry attributes.

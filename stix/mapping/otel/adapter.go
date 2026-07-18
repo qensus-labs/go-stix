@@ -48,6 +48,10 @@ func FromLogRecord(record plog.LogRecord) observation.Observation {
 					obs.ProcessPID = pid
 				}
 			}
+
+		case ProcessCommandLine:
+			obs.ProcessCommandLine = v.Str()
+
 		}
 
 		return true
