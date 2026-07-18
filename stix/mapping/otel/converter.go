@@ -6,8 +6,8 @@ import (
 	"github.com/qensus-labs/go-stix/stix/observation"
 )
 
-// MapLogEvent converts an OpenTelemetry-derived
-// security event into STIX objects.
+// MapObservation converts an OpenTelemetry-derived
+// security observation into STIX objects.
 func MapObservation(
 	builder *stix.Builder,
 	obs observation.Observation,
@@ -15,55 +15,30 @@ func MapObservation(
 
 	var refs []string
 
-	if obs.ClientAddress != "" {
-
-		ip, err := factory.IPv4(
-			builder,
-			obs.ClientAddress,
-		)
-
-		if err != nil {
-			return err
-		}
-
-		refs = append(
-			refs,
-			ip.GetID(),
-		)
+	addresses := []string{
+		obs.ClientAddress,
+		obs.ServerAddress,
+		obs.NetworkPeerAddress,
 	}
 
-	if obs.ServerAddress != "" {
+	for _, address := range addresses {
 
-		ip, err := factory.IPv4(
+		if address == "" {
+			continue
+		}
+
+		id, err := mapAddress(
 			builder,
-			obs.ServerAddress,
+			address,
 		)
 
 		if err != nil {
 			return err
 		}
 
-		refs = append(
-			refs,
-			ip.GetID(),
-		)
-	}
-
-	if obs.NetworkPeerAddress != "" {
-
-		ip, err := factory.IPv4(
-			builder,
-			obs.NetworkPeerAddress,
-		)
-
-		if err != nil {
-			return err
+		if id != "" {
+			refs = append(refs, id)
 		}
-
-		refs = append(
-			refs,
-			ip.GetID(),
-		)
 	}
 
 	if obs.URL != "" {
