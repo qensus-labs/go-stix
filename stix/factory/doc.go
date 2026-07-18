@@ -1,2 +1,2 @@
 // Package sco contains STIX Domain Objects.
-package sco
+package factory
