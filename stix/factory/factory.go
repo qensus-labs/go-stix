@@ -81,6 +81,26 @@ func DomainName(
 	return builder.Add(obj).(*sco.DomainName), nil
 }
 
+func Process(
+	builder *stix.Builder,
+	pid int64,
+	name string,
+	commandLine string,
+) (*sco.Process, error) {
+
+	obj, err := sco.NewProcess(
+		pid,
+		name,
+		commandLine,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return builder.Add(obj).(*sco.Process), nil
+}
+
 func ObservedData(
 	builder *stix.Builder,
 	refs []string,

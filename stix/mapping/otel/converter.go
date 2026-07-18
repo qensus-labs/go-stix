@@ -58,6 +58,25 @@ func MapObservation(
 		)
 	}
 
+	if obs.ProcessName != "" || obs.ProcessPID != 0 {
+
+		process, err := factory.Process(
+			builder,
+			obs.ProcessPID,
+			obs.ProcessName,
+			obs.ProcessCommandLine,
+		)
+
+		if err != nil {
+			return err
+		}
+
+		refs = append(
+			refs,
+			process.GetID(),
+		)
+	}
+
 	if len(refs) > 0 {
 
 		factory.ObservedData(

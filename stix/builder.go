@@ -61,6 +61,25 @@ func (b *Builder) Count() int {
 	return len(b.objects)
 }
 
+// Objects returns all objects currently registered in the builder.
+func (b *Builder) Objects() []STIXObject {
+
+	objects := make(
+		[]STIXObject,
+		0,
+		len(b.objects),
+	)
+
+	for _, object := range b.objects {
+		objects = append(
+			objects,
+			object,
+		)
+	}
+
+	return objects
+}
+
 // Bundle returns the generated bundle.
 func (b *Builder) Bundle() *Bundle {
 

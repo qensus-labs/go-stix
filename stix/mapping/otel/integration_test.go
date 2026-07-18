@@ -66,4 +66,59 @@ func TestCollectorLogRecordToSTIX(t *testing.T) {
 			builder.Count(),
 		)
 	}
+
+	foundIPv4 := false
+	foundIPv6 := false
+	foundDomain := false
+	foundURL := false
+	foundProcess := false
+	foundObservedData := false
+
+	for _, obj := range builder.Objects() {
+
+		switch obj.GetType() {
+
+		case stix.TypeIPv4Addr:
+			foundIPv4 = true
+
+		case stix.TypeIPv6Addr:
+			foundIPv6 = true
+
+		case stix.TypeDomainName:
+			foundDomain = true
+
+		case stix.TypeURL:
+			foundURL = true
+
+		case stix.TypeProcess:
+			foundProcess = true
+
+		case stix.TypeObservedData:
+			foundObservedData = true
+		}
+	}
+
+	if !foundIPv4 {
+		t.Fatal("missing ipv4-addr SCO")
+	}
+
+	if !foundIPv6 {
+		t.Fatal("missing ipv6-addr SCO")
+	}
+
+	if !foundDomain {
+		t.Fatal("missing domain-name SCO")
+	}
+
+	if !foundURL {
+		t.Fatal("missing url SCO")
+	}
+
+	if !foundProcess {
+		t.Fatal("missing process SCO")
+	}
+
+	if !foundObservedData {
+		t.Fatal("missing observed-data SDO")
+	}
 }
