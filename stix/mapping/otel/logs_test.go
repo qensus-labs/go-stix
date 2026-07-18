@@ -11,16 +11,14 @@ func TestMapAttributes(t *testing.T) {
 
 	builder := stix.NewBuilder()
 
-	attributes := map[string]string{
-
-		"client.address": "10.0.0.5",
-
-		"url.full": "https://example.com",
+	event := otel.LogEvent{
+		ClientAddress: "10.0.0.5",
+		URL:           "https://example.com",
 	}
 
-	err := otel.MapAttributes(
+	err := otel.MapLogEvent(
 		builder,
-		attributes,
+		event,
 	)
 
 	if err != nil {

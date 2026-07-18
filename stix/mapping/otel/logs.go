@@ -5,61 +5,81 @@ import (
 	"github.com/qensus-labs/go-stix/stix/factory"
 )
 
-// Attribute names mapped from OpenTelemetry semantic attributes.
-const (
-	ClientAddress      = "client.address"
-	ServerAddress      = "server.address"
-	NetworkPeerAddress = "network.peer.address"
-	URLFull            = "url.full"
-)
-
-// MapAttributes converts OpenTelemetry-style attributes
-// into STIX objects.
-func MapAttributes(
+// MapLogEvent converts an OpenTelemetry-derived
+// security event into STIX objects.
+func MapLogEvent(
 	builder *stix.Builder,
-	attributes map[string]string,
+	event LogEvent,
 ) error {
 
 	var refs []string
 
-	for key, value := range attributes {
+	if event.ClientAddress != "" {
 
-		switch key {
+		ip, err := factory.IPv4(
+			builder,
+			event.ClientAddress,
+		)
 
-		case ClientAddress,
-			ServerAddress,
-			NetworkPeerAddress:
-
-			ip, err := factory.IPv4(
-				builder,
-				value,
-			)
-
-			if err != nil {
-				return err
-			}
-
-			refs = append(
-				refs,
-				ip.GetID(),
-			)
-
-		case URLFull:
-
-			url, err := factory.URL(
-				builder,
-				value,
-			)
-
-			if err != nil {
-				return err
-			}
-
-			refs = append(
-				refs,
-				url.GetID(),
-			)
+		if err != nil {
+			return err
 		}
+
+		refs = append(
+			refs,
+			ip.GetID(),
+		)
+	}
+
+	if event.ServerAddress != "" {
+
+		ip, err := factory.IPv4(
+			builder,
+			event.ServerAddress,
+		)
+
+		if err != nil {
+			return err
+		}
+
+		refs = append(
+			refs,
+			ip.GetID(),
+		)
+	}
+
+	if event.NetworkPeerAddress != "" {
+
+		ip, err := factory.IPv4(
+			builder,
+			event.NetworkPeerAddress,
+		)
+
+		if err != nil {
+			return err
+		}
+
+		refs = append(
+			refs,
+			ip.GetID(),
+		)
+	}
+
+	if event.URL != "" {
+
+		url, err := factory.URL(
+			builder,
+			event.URL,
+		)
+
+		if err != nil {
+			return err
+		}
+
+		refs = append(
+			refs,
+			url.GetID(),
+		)
 	}
 
 	if len(refs) > 0 {
