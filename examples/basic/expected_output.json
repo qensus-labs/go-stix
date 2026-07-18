@@ -1,0 +1,36 @@
+{
+  "type": "bundle",
+  "id": "bundle--2f2fa20f-ccd8-4957-8a6e-4452ed402589",
+  "objects": [
+    {
+      "type": "ipv4-addr",
+      "spec_version": "2.1",
+      "id": "ipv4-addr--fcc4c54f-c5d4-539f-89e6-5eb92f230e0a",
+      "created": "2026-07-18T09:55:40.2978072Z",
+      "modified": "2026-07-18T09:55:40.2978072Z",
+      "value": "10.0.0.5"
+    },
+    {
+      "type": "url",
+      "spec_version": "2.1",
+      "id": "url--5557c26c-1cc1-53ae-b609-7f21fa0de6a2",
+      "created": "2026-07-18T09:55:40.2978072Z",
+      "modified": "2026-07-18T09:55:40.2978072Z",
+      "value": "https://example.com"
+    },
+    {
+      "type": "observed-data",
+      "spec_version": "2.1",
+      "id": "observed-data--501183da-02ca-4425-b307-be790a24d323",
+      "created": "2026-07-18T09:55:40.2978072Z",
+      "modified": "2026-07-18T09:55:40.2978072Z",
+      "first_observed": "2026-07-18T09:55:40.2978072Z",
+      "last_observed": "2026-07-18T09:55:40.2978072Z",
+      "number_observed": 2,
+      "object_refs": [
+        "ipv4-addr--fcc4c54f-c5d4-539f-89e6-5eb92f230e0a",
+        "url--5557c26c-1cc1-53ae-b609-7f21fa0de6a2"
+      ]
+    }
+  ]
+}
