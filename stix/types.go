@@ -13,8 +13,8 @@ type CommonProperties struct {
 	Type        string    `json:"type"`
 	SpecVersion string    `json:"spec_version"`
 	ID          string    `json:"id"`
-	Created     time.Time `json:"created,omitempty"`
-	Modified    time.Time `json:"modified,omitempty"`
+	Created     Timestamp `json:"created,omitempty"`
+	Modified    Timestamp `json:"modified,omitempty"`
 }
 
 // GetID returns the STIX identifier.
@@ -30,7 +30,7 @@ func (c CommonProperties) GetType() string {
 // NewCommonProperties creates common STIX metadata.
 func NewCommonProperties(objectType string, id string) CommonProperties {
 
-	now := time.Now().UTC()
+	now := NewTimestamp(time.Now())
 
 	return CommonProperties{
 		Type:        objectType,
